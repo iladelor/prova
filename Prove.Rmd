@@ -1,0 +1,71 @@
+---
+title: "Prova"
+author: "Ilaria"
+date: "1/12/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+
+
+####################################################################
+data_scuole <- data.frame(name=c("Alberghiero", "Professionale", "Tecnico", "Artistico", "Classico", "Linguistico", "Scientifico", "Socio-economico", "Socio-psico-pedagogico") ,  value=c(0.48, 1.93, 7.73, 6.76, 0.72, 51.69, 24.64, 0.48, 5.56))
+
+attach(data_scuole)
+plot_ly(data = data_scuole,x=levels(data_scuole$name), y=levels(data_scuole$value), fill = 3)
+
+hchart(QG$`Tipologia di scuola di provenienza`, colorByPoint = TRUE, name = "Clarity")
+
+
+
+####### grafico a bolle fatto bene con incroci!
+fig <- plot_ly(QG, x = ~`Tipologia di scuola di provenienza`, y = ~`Dopo l'incontro, quale Corso di Laurea ti ha maggiormente incuriosita/o o interessata/o?`, text = ~`La presentazione è risultata chiara?`, type = 'scatter', mode = 'markers',
+        marker = list(size = 10, opacity = 0.5))
+fig <- fig %>% layout(title = 'Gender Gap in Earnings per University',
+         xaxis = list(showgrid = FALSE),
+         yaxis = list(showgrid = FALSE))
+
+fig
+
+htmlwidgets::saveWidget(as_widget(fig), "index.html")
+
+
+
+
+
+library(plotly)
+
+data <- read.csv("https://raw.githubusercontent.com/plotly/datasets/master/school_earnings.csv")
+
+fig <- plot_ly(data, x = ~Women, y = ~Men, text = ~School, type = 'scatter', mode = 'markers',
+        marker = list(size = ~Gap, opacity = 0.5))
+fig <- fig %>% layout(title = 'Gender Gap in Earnings per University',
+         xaxis = list(showgrid = FALSE),
+         yaxis = list(showgrid = FALSE))
+
+fig
+
